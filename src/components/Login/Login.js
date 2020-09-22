@@ -14,54 +14,74 @@ function Login() {
 
   const [{ user }, dispatch] = useStateValue();
 
-  const handleCreateUser = async (request, response) => {
+  const startSpinner = () => {
+    dispatch({ type: "START_LOADING" });
+  };
+  const stopSpinner = () => {
+    dispatch({ type: "STOP_LOADING" });
+  };
+
+  const handleCreateUser = (request, response) => {
     if (!username || !email || !password) {
       displayError("All fields are required to create a new user.");
       return;
     }
     try {
-      const result = await auth
-      .createUserWithEmailAndPassword(email, password);
 
-      const user = {
-        username: username,
-        email: email,
-        id: result.user.uid,
-        signedAsAnonymous: false,
-        signedAsUser: true,
-      };
-      
-      const response = await fetch(userAPIUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
-
-      if(response.ok){
-        dispatch({
-          type: "INIT_USER",
-          user: user,
-        });
-      } else {
-        return response.status(400).send('Couldn\'t fetch user information');
+      startSpinner();
+      auth
+        .createUserWithEmailAndPassword(email, password)
+        .then((result) => {
+          const user = {
+            username: username,
+            email: email,
+            id: result.user.uid,
+            signedAsAnonymous: false,
+            signedAsUser: true,
+          };
+          fetch(userAPIUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(user),
+          })
+            .then((response) => {
+              stopSpinner();
+              if (response.ok) {
+                dispatch({
+                  type: "INIT_USER",
+                  user: user,
+                });
+              } else {
+                displayError("Unknown error");
+              }
+            })
+            .catch((error) => {
+              stopSpinner();
+              displayError(error.message);
+            })
+          })
+            .catch(error => {
+            stopSpinner();
+            displayError(error.message)
+          });
+      } catch(error){
+        displayError(error.message);
       }
-    } catch(error){
-      return response.status(500).send(error.message);
-    }
-  }    
+  }
 
   const handleSignInUser = async () => {
-    if(!email || !password) {
-      displayError('Email and password are required for signing in.');
+    if (!email || !password) {
+      displayError("Email and password are required for signing in.");
       return;
     }
     try {
+      startSpinner();
       const result = await auth.signInWithEmailAndPassword(email, password);
       const data = await fetch(userAPIUrl + result.user.uid);
       const userObject = await data.json();
-      console.log('userobject ',userObject);
+      console.log("userobject ", userObject);
 
       const user = {
         username: userObject.username,
@@ -70,19 +90,22 @@ function Login() {
         signedAsAnonymous: false,
         signedAsUser: true,
       };
+      //User create success add to state
+      stopSpinner();
 
-      console.log('user pre dispatch', user)
-          dispatch({
-            type:'SIGN_IN',
-            user:user,
-          })
-
-    }catch(error){
-      displayError(error.message)
+      dispatch({
+        type: "SIGN_IN",
+        user: user,
+      });
+    } catch (error) {
+      //Oh shit something went wrong. stop spinner and show errorMSG
+      stopSpinner();
+      displayError(error.message);
     }
-  }
+  };
 
   const displayError = (error) => {
+    //Unhide div with errorMessage
     const errorText = document.querySelector(".error-message");
     errorText.style.display = "block";
     errorText.textContent = error;
@@ -97,6 +120,8 @@ function Login() {
     setPassword(element.target.value);
   };
   const handleAnonLogIn = () => {
+    startSpinner();
+
     const user = {
       username: "Anonymous",
       email: "",
@@ -104,6 +129,8 @@ function Login() {
       signedAsAnonymous: true,
       signedAsUser: false,
     };
+    stopSpinner();
+
     dispatch({
       type: "INIT_USER",
       user: user,

@@ -44,3 +44,18 @@
   display: flex;
   flex-direction: column;
 }
+.MuiCircularProgress-colorPrimary {
+  color: white !important;
+}
+
+.MuiCircularProgress-root { 
+  left: 43%; 
+  position: absolute; 
+  top: 44vh; 
+}
+.loading-hidden {
+  visibility: hidden;
+}
+.loading-visible {
+  visibility: visible;
+}

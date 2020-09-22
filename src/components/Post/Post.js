@@ -12,7 +12,7 @@ function Post({ title, author, authorId, date, time, id, onDelete, onEdit }) {
 
   const elementRef = useRef(null);
 
-  const toggleEditBtnClick = (element) => {
+  const toggleEditBtnClick = (e) => {
     setIsEditing(!isEditing);
   };
   const handleChange = (e) => {
@@ -22,7 +22,11 @@ function Post({ title, author, authorId, date, time, id, onDelete, onEdit }) {
     ? "btn btn-success edit-btn"
     : "btn btn-primary edit-btn";
   const getBtnContainerClass =
-    (authorId === user.id && !user.signedAsAnonymous)? "buttons-container" : "buttons-container-hidden";
+    authorId === user.id && !user.signedAsAnonymous
+      ? "buttons-container"
+      : "buttons-container-hidden";
+
+
 
   useEffect(() => {
     console.log("in effect");

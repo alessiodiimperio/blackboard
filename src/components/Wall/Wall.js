@@ -37,17 +37,24 @@ function Wall() {
 
   //Handle delete sent from Post object
   const handleDelete = async (id) => {
+    startSpinner();
     await fetch(apiUrl + id, { method: "DELETE" }).then((result) => {
+    stopSpinner();
       if (result.ok) {
         dispatch({
           type: "DELETE_POST",
           id: id,
         });
       }
-    });
+    }).catch(error => {
+      stopSpinner();
+      console.log(error.message)
+    })
   };
   //Handle edit sent from Post object
   const handleSubmit = async (post) => {
+    startSpinner();
+    const originalPost = {...post};
     const result = await fetch(apiUrl + post.id, {
       method: "PUT", // or 'PUT'
       headers: {
@@ -55,14 +62,21 @@ function Wall() {
       },
       body: JSON.stringify(post),
     });
+    stopSpinner();
     if (result.ok) {
       dispatch({
         type: "EDIT_POST",
         post: post,
       });
-    } else { console.log('Error: ', result.statusText)}
+    }
   };
-
+  //Spinner functions
+  const startSpinner = () => {
+    dispatch({ type: "START_LOADING" });
+  };
+  const stopSpinner = () => {
+    dispatch({ type: "STOP_LOADING" });
+  };
   return (
     <div className="wall-container">
       <div className="wall-content">
