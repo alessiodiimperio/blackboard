@@ -1,0 +1,53 @@
+.post-container {
+    display: flex; 
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2),rgba(255, 255, 255, 0));
+    margin: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.post-object {
+    width: 100%;
+    height:100%;
+}
+.post-title {
+    display: flex;
+    justify-content: center;
+    margin-left: 50px;
+    margin-right: 50px;
+    
+}
+.title-text {
+    
+    margin-top: 20px;
+    color: white;
+}
+.title-innertext {
+    text-align: center;
+    margin-top: 20px;
+    color: white;
+    font-family: 'Kaushan Script', cursive;
+}
+.post-info {
+    margin-right: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.post-info > p {
+    margin: 2px;
+    color: white;
+}
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+.buttons-container-hidden {
+    display: none;
+}
+.delete-btn {
+    margin-right: 20px;
+}
+.edit-btn {
+    margin-left: 20px;
+}

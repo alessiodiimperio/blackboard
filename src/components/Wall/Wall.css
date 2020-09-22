@@ -1,0 +1,9 @@
+ .wall-container {
+    width: 100%;
+    overflow: scroll;
+   height: 100%;
+
+}
+ .wall-content {
+     width: 100%;
+ }

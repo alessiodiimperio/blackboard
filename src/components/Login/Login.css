@@ -1,0 +1,39 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+}
+.login-box {
+    display: flex;
+    flex-direction: column;
+}
+.login-box > * {
+    justify-content: space-between;
+    width: 350px;
+    margin: 5px;
+    
+}
+.welcome-text {
+    color: white;
+}
+.buttons {
+    display: flex;
+    flex-direction: row;
+}
+.buttons > * {
+    margin: 4px;
+}
+.create-btn {
+    background-color: rgb(47, 226, 47);
+    color: grey;
+}
+.anonymous-btn {
+background-color: lightgrey;
+}
+.error-message {
+    display: none;
+    color: rgb(243, 82, 82);
+}
