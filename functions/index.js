@@ -9,7 +9,7 @@ const app = express();
 const cors = require("cors");
 app.use(cors());
 
-/**************** POSTS ***************/
+/**************** POSTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>***************/
 //Get all posts from database
 app.get("/", async (request, response) => {
   try {
@@ -80,7 +80,7 @@ app.put("/:id", async (request, response) => {
   }
 });
 
-/*************** USERS ***************/
+/*************** USERS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>***************/
 
 //Upload User data to firestore after auth create
 app.post("/user", async (request, response) => {
@@ -110,8 +110,8 @@ app.get("/user/:id", async (request, response) => {
     const snapshot = await usersRef.doc(id).get();
     if (!snapshot.exists) {
       return response
-        .status(204)
-        .send("There is no document for the current user");
+        .status(400)
+        .send("There is no document for the specified user");
     }
     const document = await snapshot.data();
     return response.status(200).send(JSON.stringify(document));

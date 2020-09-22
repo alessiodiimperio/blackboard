@@ -1,9 +1,11 @@
+//Initial states for variables
 export const initialState = {
   posts: [],
   user: {},
   isLoading: false,
 };
 
+//Dispatch actions in switch
 const reducer = (state, action) => {
   switch (action.type) {
     case "INIT_WALL":

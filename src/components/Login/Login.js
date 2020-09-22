@@ -157,7 +157,7 @@ function Login() {
         <input
           onChange={handlePasswordChange}
           className="login-password"
-          type="text"
+          type="password"
           placeholder="Password..."
         />
         <div className="buttons">

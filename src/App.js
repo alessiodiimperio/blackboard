@@ -18,7 +18,9 @@ function App() {
   if (user.signedAsAnonymous || user.signedAsUser) {
     return (
       <div className="app-container">
+        <div className="centered">
         <CircularProgress size={100} className={getProgressClass} />
+        </div>
         <Header />
         <Wall / >
         <InputField />
@@ -27,7 +29,9 @@ function App() {
   } else {
     return (
       <div className="app-container">
-        <CircularProgress size={100} className={getProgressClass}/>
+        <div className="centered">
+        <CircularProgress size={100} className={getProgressClass} />
+        </div>
         <Login />
       </div>
     );

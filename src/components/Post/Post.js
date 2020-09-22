@@ -15,7 +15,8 @@ function Post({ title, author, authorId, date, time, id, onDelete, onEdit }) {
   const toggleEditBtnClick = (e) => {
     setIsEditing(!isEditing);
   };
-  const handleChange = (e) => {
+  
+  const handleInputChange = (e) => {
     setTitle(e.target.value);
   };
   const getEditBtnClass = isEditing
@@ -25,8 +26,6 @@ function Post({ title, author, authorId, date, time, id, onDelete, onEdit }) {
     authorId === user.id && !user.signedAsAnonymous
       ? "buttons-container"
       : "buttons-container-hidden";
-
-
 
   useEffect(() => {
     console.log("in effect");
@@ -55,7 +54,7 @@ function Post({ title, author, authorId, date, time, id, onDelete, onEdit }) {
           <h1 className="title-innertext">
             <ContentEditable
               ref={elementRef}
-              onChange={handleChange}
+              onChange={handleInputChange}
               disabled={!isEditing}
               html={`${newTitle}`}
             />

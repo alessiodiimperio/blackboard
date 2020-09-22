@@ -27,7 +27,7 @@ function Wall() {
           console.log(firstTimeStamp, secondTimeStamp)
         return parseInt(firstTimeStamp) < parseInt(secondTimeStamp);
       });
-      //send to reducer for state
+      //send to reducer for state management
       stopSpinner();
       dispatch({
         type: "INIT_WALL",
