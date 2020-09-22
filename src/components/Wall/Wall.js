@@ -11,10 +11,11 @@ function Wall() {
 
   //Component did load - initialize state with db fetch
   useEffect(() => {
+    startSpinner();
     const fetchData = async () => {
       const data = await fetch(apiUrl);
+      if(!data.ok) { return }
       const json = await data.json();
-
       const fetchedPosts = [...json];
 
       //Sort posts by date/time // NEEDS TO BE EDITED TO TIMESTAMP SERVERSIDE
@@ -27,6 +28,7 @@ function Wall() {
         return parseInt(firstTimeStamp) < parseInt(secondTimeStamp);
       });
       //send to reducer for state
+      stopSpinner();
       dispatch({
         type: "INIT_WALL",
         posts: fetchedPosts,

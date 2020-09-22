@@ -49,9 +49,9 @@
 }
 
 .MuiCircularProgress-root { 
-  left: 43%; 
+  left: 50vw; 
   position: absolute; 
-  top: 44vh; 
+  top: 50vh; 
 }
 .loading-hidden {
   visibility: hidden;
