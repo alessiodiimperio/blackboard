@@ -103,7 +103,12 @@ function Login() {
       displayError(error.message);
     }
   };
-
+  const tryLogin = (e) => {
+    console.log('in function try login')
+    if(e.key === 'Enter'){
+      handleSignInUser()
+    }
+  }
   const displayError = (error) => {
     //Unhide div with errorMessage
     const errorText = document.querySelector(".error-message");
@@ -159,6 +164,7 @@ function Login() {
           className="login-password"
           type="password"
           placeholder="Password..."
+          onKeyPress={tryLogin}
         />
         <div className="buttons">
           <button className="btn-secondary" onClick={handleCreateUser}>
